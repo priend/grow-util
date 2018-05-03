@@ -1,5 +1,14 @@
 package com.pre.roc.grow.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+
+import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.Configurator;
+
 /**
  * LOG4J2
  *
@@ -8,48 +17,51 @@ package com.pre.roc.grow.util;
  */
 public class Log4j2Util {
 
-	// private static final String LOG4J_PROPERITES = "log4j.xml";
+	private static final String DEFAULT_LOG4J_2_PAHT = "log4j2.xml";
 
 	/**
 	 * 
 	 */
 	public static void loadLogConfigurator() {
-		// DOMConfigurator.configure(ConfigUtil.USER_DIR.concat(ConfigUtil.FILE_SEPARATOR).concat(LOG4J_PROPERITES));
+		try
+		{
+			Configurator.initialize(null, new ConfigurationSource(new FileInputStream(new File(DEFAULT_LOG4J_2_PAHT))));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
-	// public static void info(Object msg) {
-	// StackTraceElement stack[] = (new Throwable()).getStackTrace();
-	//
-	// Logger logger = Logger.getLogger(stack[1].getClassName());
-	// logger.log(LogHelper.class.getName(), Level.INFO, msg, null);
-	// }
-	//
-	// public static void error(Object msg) {
-	// StackTraceElement stack[] = (new Throwable()).getStackTrace();
-	//
-	// Logger logger = Logger.getLogger(stack[1].getClassName());
-	// logger.log(LogHelper.class.getName(), Level.ERROR, msg, null);
-	// }
-	//
-	// public static void debug(Object msg) {
-	// StackTraceElement stack[] = (new Throwable()).getStackTrace();
-	//
-	// Logger logger = Logger.getLogger(stack[1].getClassName());
-	// logger.log(LogHelper.class.getName(), Level.DEBUG, msg, null);
-	// }
-	//
-	// public static void warn(Object msg) {
-	// StackTraceElement stack[] = (new Throwable()).getStackTrace();
-	//
-	// Logger logger = Logger.getLogger(stack[1].getClassName());
-	// logger.log(LogHelper.class.getName(), Level.WARN, msg, null);
-	// }
-	//
-	// public static void exception(Exception e) {
-	// StackTraceElement stack[] = (new Throwable()).getStackTrace();
-	//
-	// Logger logger = Logger.getLogger(stack[1].getClassName());
-	// logger.log(LogHelper.class.getName(), Level.ERROR,
-	// ExceptionUtil.toString(e), null);
-	// }
+	/**
+	 * @param url
+	 */
+	public static void loadLogConfigurator(URL url) {
+
+		try
+		{
+			Configurator.initialize(null, new ConfigurationSource(new FileInputStream(new File(url.getPath())), url));
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @param path
+	 */
+	public static void loadLogConfigurator(String path) {
+
+		try
+		{
+			File file = new File(path);
+			Configurator.initialize(null, new ConfigurationSource(new FileInputStream(file), file));
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 }

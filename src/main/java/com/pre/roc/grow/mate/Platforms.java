@@ -1,7 +1,9 @@
-package com.pre.roc.grow.voice;
+package com.pre.roc.grow.mate;
 
 import java.io.File;
 import java.lang.management.ManagementFactory;
+
+import com.pre.roc.grow.comity.jazz.file.FileTypeUtil;
 
 /**
  * 变量
@@ -12,13 +14,15 @@ import java.lang.management.ManagementFactory;
 public class Platforms {
 
 	// 文件路径分隔符
-	public static final String FILE_PATH_SEPARATOR_1 = File.separator;
+	public static final String FILE_PATH_SEPARATOR_1 = FileTypeUtil.PATH_SEPARATOR;
 	public static final char FILE_PATH_SEPARATOR_CHAR = File.separatorChar;
 	public static final char WINDOWS_FILE_PATH_SEPARATOR_CHAR = '\\';
 	public static final char LINUX_FILE_PATH_SEPARATOR_CHAR = '/';
 
 	public static final String CLASS_PATH_SEPARATOR = "/";
 	public static final char CLASS_PATH_SEPARATOR_CHAR = '/';
+
+	public static final String USER_DIR = System.getProperty("user.dir");
 
 	// 换行符,JDK7可使用System.lineSeparator()
 	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
@@ -78,6 +82,14 @@ public class Platforms {
 		{
 			return -1;
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	public static String currentWorkPath() {
+
+		return getParentClassPath(USER_DIR);
 	}
 
 	/**

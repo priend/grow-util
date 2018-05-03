@@ -4,6 +4,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
+import com.pre.roc.grow.mate.Platforms;
+
 /**
  *
  * @file Log4jUtil.java
@@ -16,9 +18,25 @@ public class Log4jUtil {
 	/**
 	 * 
 	 */
+	public static void loadLogConfigurator(String path) {
+
+		if (StringUtils.isEmpty(path))
+		{
+			loadLogConfigurator();
+		}
+		else
+		{
+			PropertyConfigurator.configure(path);
+		}
+
+	}
+
+	/**
+	 * 
+	 */
 	public static void loadLogConfigurator() {
 
-		PropertyConfigurator.configure(ConfigUtil.currentWorkPath().concat(LOG4J_PROPERITES));
+		PropertyConfigurator.configure(Platforms.getClassPath().concat(LOG4J_PROPERITES));
 	}
 
 	/**

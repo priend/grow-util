@@ -25,7 +25,7 @@ public class DBContextHolder {
 	 * 
 	 */
 	public DBContextHolder() {
-		properties = PropertiesLoader.fromFile(ConfigUtil.currentWorkPath().concat(DB_FILE));
+		properties = PropertiesLoader.fromFile(DB_FILE);
 	}
 
 	/**
